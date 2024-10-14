@@ -6,7 +6,6 @@ const select = document.getElementById("select");
 const dropdown = document.getElementById("drop-down");
 const submit = document.getElementById("submit");
 const year = document.getElementById("year");
-const wishedItems = document.getElementById("wished-items");
 
 const date = new Date();
 
@@ -63,8 +62,11 @@ async function fetchApi(URL) {
   }
 
   arr.map((book) => {
-    const bookDiv = document.createElement("div");
+    const bookDiv = document.createElement("a");
+    bookDiv.href = 'book.html';
     bookDiv.classList.add("book");
+
+    bookDiv.addEventListener('click', () => localStorage.setItem('selectedBook', JSON.stringify(book)));
 
     const addToWishList = document.createElement("button");
     addToWishList.textContent = alreadyAdded(book) ? "remove from wishlist" : "add to wishlist";
@@ -157,6 +159,3 @@ dropdown.addEventListener("change", () => {
   } else fetchApi(URL);
 });
 
-wishedItems.addEventListener("click", () => {
-  bookContainer.innerHTML = "";
-});
