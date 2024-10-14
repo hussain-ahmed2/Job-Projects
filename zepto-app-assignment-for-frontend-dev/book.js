@@ -1,8 +1,6 @@
 const book = JSON.parse(localStorage.getItem("selectedBook"));
 const bookContainer = document.getElementById("book-container");
 
-console.log(book);
-
 const imgContainer = document.createElement("div");
 imgContainer.classList.add("img-container");
 const bookImg = document.createElement("img");
@@ -46,14 +44,14 @@ const contents = document.createElement("div");
 const pre = document.createElement("pre");
 
 async function fetchContents(url) {
-  const res = await fetch(url, {
-    mode: 'no-cors'
-  });
+  console.log(url);
+  const res = await fetch(`https://api.allorigins.win/raw?url=${url}`);
   const data = await res.text();
   return data;
 }
-pre.innerHTML = await fetchContents(book.formats["text/plain; charset=us-ascii"]);
-
+pre.innerHTML = await fetchContents(
+  book.formats["text/plain; charset=us-ascii"]
+);
 contents.appendChild(pre);
 
 bookContainer.appendChild(contents);
