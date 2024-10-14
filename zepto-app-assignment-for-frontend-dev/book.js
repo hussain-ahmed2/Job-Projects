@@ -1,6 +1,10 @@
 const book = JSON.parse(localStorage.getItem("selectedBook"));
 const bookContainer = document.getElementById("book-container");
 
+
+const bookDiv = document.createElement('div');
+bookDiv.id = 'book';
+
 const imgContainer = document.createElement("div");
 imgContainer.classList.add("img-container");
 const bookImg = document.createElement("img");
@@ -37,21 +41,20 @@ infoContainer.appendChild(bookTitle);
 infoContainer.appendChild(bookAuthors);
 infoContainer.appendChild(bookGenre);
 
-bookContainer.appendChild(imgContainer);
-bookContainer.appendChild(infoContainer);
+bookDiv.appendChild(imgContainer);
+bookDiv.appendChild(infoContainer);
+bookContainer.appendChild(bookDiv);
 
 const contents = document.createElement("div");
+contents.id = 'contents';
 const pre = document.createElement("pre");
 
 async function fetchContents(url) {
-  console.log(url);
   const res = await fetch(`https://api.allorigins.win/raw?url=${url}`);
   const data = await res.text();
   return data;
 }
-pre.innerHTML = await fetchContents(
-  book.formats["text/plain; charset=us-ascii"]
-);
+pre.innerHTML = await fetchContents(book.formats["text/plain; charset=us-ascii"]);
 contents.appendChild(pre);
 
 bookContainer.appendChild(contents);
