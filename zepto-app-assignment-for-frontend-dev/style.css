@@ -50,6 +50,7 @@ button:disabled {
 
 main {
     padding-top: 3rem;
+    min-height: calc(100vh - 3.5rem);
 }
 
 #dropdown-container {
@@ -101,12 +102,19 @@ main {
     flex-direction: column;
     flex-grow: 1;
     gap: 1rem;
-    cursor: pointer;
     transition: all 0.1s linear;
+    text-decoration: none;
+    color: black;
 }
 
 .book:hover {
     background-color: hsl(216, 100%, 90%);
+}
+
+.book-id {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .img-container {

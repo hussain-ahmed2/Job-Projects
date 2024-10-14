@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+    <script defer src="index.js"></script>
 </head>
 <body>
     
@@ -16,13 +16,13 @@
                 <input id="search-by-title" type="text" name="title" placeholder="search by title">
                 <button id="submit" type="submit">Search</button>
             </form> 
-            <a href="wishlist.html"><button>WishList <span id="wished-items"></span></button></a>  
+            <button>WishList <span id="wished-items"></span></button> 
         </nav>
     </header>
 
     <main>
         <form id="dropdown-container">
-            <label for="genre">Filter by Genre/Topic</label>
+            <label for="drop-down">Filter by Genre/Topic</label>
             <select name="genre" id="drop-down">
                 <option value="" selected>Default</option>
                 <option value="children">Children</option>
