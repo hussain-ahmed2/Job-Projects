@@ -1,0 +1,136 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+header {
+    height: 3rem;
+    border-bottom: 1px solid hsl(0, 0%, 70%);
+    position: fixed;
+    width: 100%;
+    background-color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+input, button {
+    padding: 0.5rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+main {
+    padding-top: 3rem;
+}
+
+#dropdown-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 1rem 1rem 0;
+    display: flex;
+    gap: 1rem;
+}
+
+#dropdown-container select {
+    padding: 0 0.25rem;
+    font-size: 1rem;
+}
+
+#book-container {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+@media screen and (max-width: 1280px) {
+    #book-container {
+        grid-template-columns: repeat(3, auto);
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    #book-container {
+        grid-template-columns: repeat(2, auto);
+    }
+}
+
+@media screen and (max-width: 786px) {
+    #book-container {
+        grid-template-columns: repeat(1, auto);
+    }
+}
+
+.book {
+    padding: 1rem;
+    border: 1px solid hsl(0, 0%, 90%);
+    box-shadow: 1px 2px 6px hsl(0, 0%, 90%);
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.book:hover {
+    background-color: hsl(216, 100%, 90%);
+}
+
+.img-container {
+    max-height: 400px;
+    aspect-ratio: 3/8;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#btn-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 1rem;
+}
+
+footer {
+    padding: 1rem;
+    border-top: 1px solid hsl(0, 0%, 70%);
+    text-align: center;
+}
