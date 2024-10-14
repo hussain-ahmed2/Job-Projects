@@ -11,14 +11,14 @@ const wishedItems = document.getElementById("wished-items");
 const date = new Date();
 
 year.innerText = date.getFullYear();
-localStorage.setItem("booksWishList", '[]')
-const wishList = localStorage.getItem("booksWishList")
+
+let wishList = localStorage.getItem("booksWishList")
   ? JSON.parse(localStorage.getItem("booksWishList"))
   : [];
 
 function updateWishList(addToWishList, book) {
   let exists = false;
-  for(let item of wishList) {
+  for (let item of wishList) {
     if (item.id == book.id) {
       exists = true;
       break;
@@ -27,8 +27,19 @@ function updateWishList(addToWishList, book) {
   if (!exists) {
     wishList.push(book);
     localStorage.setItem("booksWishList", JSON.stringify(wishList));
+    addToWishList.classList.toggle("danger");
+    addToWishList.classList.toggle("success");
+    addToWishList.textContent = "remove from wishlist";
+  } else {
+    wishList = wishList.filter((item) => {
+      if (item.id == book.id) return;
+      else return item;
+    });
+    localStorage.setItem("booksWishList", JSON.stringify(wishList));
+    addToWishList.classList.toggle("success");
+    addToWishList.classList.toggle("danger");
+    addToWishList.textContent = "add to wishlist";
   }
-
   console.log(addToWishList, wishList);
 }
 
@@ -50,8 +61,10 @@ async function fetchApi(URL) {
 
     const addToWishList = document.createElement("button");
     addToWishList.textContent = "add to wishlist";
-
-    addToWishList.addEventListener("click", () => updateWishList(addToWishList, book));
+    addToWishList.classList.add('success');
+    addToWishList.addEventListener("click", () =>
+      updateWishList(addToWishList, book)
+    );
 
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("img-container");
