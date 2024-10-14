@@ -46,7 +46,9 @@ const contents = document.createElement("div");
 const pre = document.createElement("pre");
 
 async function fetchContents(url) {
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    mode: 'no-cors'
+  });
   const data = await res.text();
   return data;
 }
