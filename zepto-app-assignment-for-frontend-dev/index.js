@@ -40,7 +40,14 @@ function updateWishList(addToWishList, book) {
     addToWishList.classList.toggle("danger");
     addToWishList.textContent = "add to wishlist";
   }
-  console.log(addToWishList, wishList);
+  console.log(wishList);
+}
+
+function alreadyAdded(book) {
+  for(let item of wishList) {
+    if (item.id == book.id) return true;
+  }
+  return false;
 }
 
 async function fetchApi(URL) {
@@ -60,8 +67,8 @@ async function fetchApi(URL) {
     bookDiv.classList.add("book");
 
     const addToWishList = document.createElement("button");
-    addToWishList.textContent = "add to wishlist";
-    addToWishList.classList.add('success');
+    addToWishList.textContent = alreadyAdded(book) ? "remove from wishlist" : "add to wishlist";
+    addToWishList.classList.add(alreadyAdded(book) ? 'danger' : 'success');
     addToWishList.addEventListener("click", () =>
       updateWishList(addToWishList, book)
     );
