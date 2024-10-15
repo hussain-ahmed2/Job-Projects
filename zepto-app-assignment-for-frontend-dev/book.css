@@ -103,3 +103,33 @@ footer {
     padding: 0 .35rem;
     background-color: yellow;
 }
+
+.book-id {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.success {
+    background-color: hsl(120, 100%, 70%);
+}
+
+.success:hover {
+    background-color: hsl(120, 100%, 30%);
+    color: white;
+}
+
+.danger {
+    background-color: hsl(0, 100%, 70%);
+}
+
+.danger:hover {
+    background-color: hsl(0, 100%, 30%);
+    color: white;
+}
+
+.book-id button {
+    outline: none;
+    border: 1px solid hsl(0, 0%, 95%);
+    border-radius: 4px;
+}

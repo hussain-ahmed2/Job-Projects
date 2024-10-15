@@ -93,7 +93,17 @@ main {
 }
 
 .book:hover {
-    background-color: hsl(216, 100%, 90%);
+    background-color: hsl(216, 100%, 95%);
+}
+
+.book a {
+    text-decoration: none;
+    color: blue;
+}
+
+.book a:hover {
+    color: dodgerblue;
+    text-decoration: underline;
 }
 
 .book-id {
@@ -125,8 +135,18 @@ main {
     background-color: hsl(120, 100%, 70%);
 }
 
+.success:hover {
+    background-color: hsl(120, 100%, 30%);
+    color: white;
+}
+
 .danger {
     background-color: hsl(0, 100%, 70%);
+}
+
+.danger:hover {
+    background-color: hsl(0, 100%, 30%);
+    color: white;
 }
 
 #btn-container {

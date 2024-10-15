@@ -6,11 +6,60 @@ let wishList = localStorage.getItem("booksWishList")
   : [];
 
 wishedItemsCount.textContent = wishList.length;
+(function(history){
+  var pushState = history.pushState;
+  history.pushState = function(state) {
+    wishedItemsCount.textContent = wishList.length;
+    return pushState.apply(history, arguments);
+  };
+})(window.history);
 
-const pre = document.createElement("pre");
+function alreadyAdded(book) {
+  for (let item of wishList) {
+    if (item.id == book.id) return true;
+  }
+  return false;
+}
+
+function updateWishList(addToWishList, book) {
+  let exists = false;
+  for (let item of wishList) {
+    if (item.id == book.id) {
+      exists = true;
+      break;
+    }
+  }
+  if (!exists) {
+    wishList.push(book);
+    localStorage.setItem("booksWishList", JSON.stringify(wishList));
+    addToWishList.classList.toggle("danger");
+    addToWishList.classList.toggle("success");
+    addToWishList.textContent = "remove from wishlist";
+  } else {
+    wishList = wishList.filter((item) => {
+      if (item.id == book.id) return;
+      else return item;
+    });
+    localStorage.setItem("booksWishList", JSON.stringify(wishList));
+    addToWishList.classList.toggle("success");
+    addToWishList.classList.toggle("danger");
+    addToWishList.textContent = "add to wishlist";
+  }
+  console.log(wishList);
+  wishedItemsCount.textContent = wishList.length;
+}
 
 const bookDiv = document.createElement('div');
 bookDiv.id = 'book';
+
+const addToWishList = document.createElement("button");
+    addToWishList.textContent = alreadyAdded(book)
+      ? "remove from wishlist"
+      : "add to wishlist";
+    addToWishList.classList.add(alreadyAdded(book) ? "danger" : "success");
+    addToWishList.addEventListener("click", () =>
+      updateWishList(addToWishList, book)
+    );
 
 const imgContainer = document.createElement("div");
 imgContainer.classList.add("img-container");
@@ -40,6 +89,7 @@ book.bookshelves.forEach((el, i, arr) => {
 const bookId = document.createElement("p");
 bookId.innerText = "ID: " + book.id;
 bookId.className = "book-id";
+bookId.appendChild(addToWishList);
 
 const infoContainer = document.createElement("div");
 infoContainer.classList.add("info-container");

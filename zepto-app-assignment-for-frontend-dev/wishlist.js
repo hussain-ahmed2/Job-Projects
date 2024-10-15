@@ -107,3 +107,11 @@ function updateContents() {
 }
 
 updateContents();
+
+(function(history){
+  var pushState = history.pushState;
+  history.pushState = function(state) {
+    updateContents();
+    return pushState.apply(history, arguments);
+  };
+})(window.history);

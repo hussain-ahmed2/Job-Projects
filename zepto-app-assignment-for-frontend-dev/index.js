@@ -6,20 +6,20 @@ const select = document.getElementById("select");
 const dropdown = document.getElementById("drop-down");
 const submit = document.getElementById("submit");
 const year = document.getElementById("year");
-const statusMessage = document.getElementById('message');
-const messageContainer = document.getElementById('message-container');
-const wishedItemsCount = document.getElementById('wished-items-count');
-const searchBtn = document.getElementById('search-btn');
-const searchContainer = document.getElementById('search-container');
-const hideBtn = document.getElementById('hide-btn');
-const emptyList = document.getElementById('empty');
+const statusMessage = document.getElementById("message");
+const messageContainer = document.getElementById("message-container");
+const wishedItemsCount = document.getElementById("wished-items-count");
+const searchBtn = document.getElementById("search-btn");
+const searchContainer = document.getElementById("search-container");
+const hideBtn = document.getElementById("hide-btn");
+const emptyList = document.getElementById("empty");
 
-hideBtn.addEventListener('click', () => {
-  searchContainer.style.top = '-10rem';
+hideBtn.addEventListener("click", () => {
+  searchContainer.style.top = "-10rem";
 });
 
-searchBtn.addEventListener('click', () => {
-  searchContainer.style.top = '4rem';
+searchBtn.addEventListener("click", () => {
+  searchContainer.style.top = "4rem";
 });
 
 const date = new Date();
@@ -30,12 +30,11 @@ let wishList = localStorage.getItem("booksWishList")
   ? JSON.parse(localStorage.getItem("booksWishList"))
   : [];
 
-
 wishedItemsCount.textContent = wishList.length;
 
-(function(history){
+(function (history) {
   var pushState = history.pushState;
-  history.pushState = function(state) {
+  history.pushState = function (state) {
     wishedItemsCount.textContent = wishList.length;
     return pushState.apply(history, arguments);
   };
@@ -76,18 +75,6 @@ function alreadyAdded(book) {
   return false;
 }
 
-function articleShorter(article, length) {
-  let res = '';
-  if (article.length > length) {
-    for (let i=0; i<length; i++) {
-      res += article[i];
-    }
-    res += '...';
-    return res;
-  }
-  return article;
-}
-
 async function fetchApi(URL) {
   messageContainer.style.display = "block";
   statusMessage.innerHTML = "fetching data please wait...";
@@ -99,23 +86,19 @@ async function fetchApi(URL) {
   messageContainer.style.display = "none";
 
   bookContainer.innerHTML = "";
-  buttonContainer.innerHTML = '';
+  buttonContainer.innerHTML = "";
 
   if (!arr.length) {
-    emptyList.style.display = 'block';
+    emptyList.style.display = "block";
     emptyList.innerHTML = "No items found!";
     return;
   }
 
-  emptyList.style.display = 'none';
+  emptyList.style.display = "none";
 
   arr.map((book) => {
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
-
-    bookDiv.addEventListener("click", () =>
-      localStorage.setItem("selectedBook", JSON.stringify(book))
-    );
 
     const addToWishList = document.createElement("button");
     addToWishList.textContent = alreadyAdded(book)
@@ -146,7 +129,7 @@ async function fetchApi(URL) {
     infoContainer.appendChild(bookId);
     const showBookDetails = document.createElement("a");
     showBookDetails.className = "show-book-details";
-    showBookDetails.textContent = 'Show Book Details';
+    showBookDetails.textContent = "Show Book Details";
     showBookDetails.href = "book.html";
     infoContainer.appendChild(showBookDetails);
 
@@ -187,7 +170,7 @@ function handleFormSubmit(e) {
     const searchURL = `https://gutendex.com/books?search=${searchByTitle.value}`;
     fetchApi(searchURL);
   } else fetchApi(URL);
-  searchContainer.style.top = '-10rem';
+  searchContainer.style.top = "-10rem";
 }
 
 submit.addEventListener("click", handleFormSubmit);
