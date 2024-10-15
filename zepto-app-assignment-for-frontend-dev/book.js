@@ -1,6 +1,13 @@
 const book = JSON.parse(localStorage.getItem("selectedBook"));
 const bookContainer = document.getElementById("book-container");
+const wishedItemsCount = document.getElementById('wished-items-count');
+let wishList = localStorage.getItem("booksWishList")
+  ? JSON.parse(localStorage.getItem("booksWishList"))
+  : [];
 
+wishedItemsCount.textContent = wishList.length;
+
+const pre = document.createElement("pre");
 
 const bookDiv = document.createElement('div');
 bookDiv.id = 'book';
@@ -47,14 +54,14 @@ bookContainer.appendChild(bookDiv);
 
 const contents = document.createElement("div");
 contents.id = 'contents';
-const pre = document.createElement("pre");
 
 async function fetchContents(url) {
-  const res = await fetch(`https://api.allorigins.win/raw?url=${url}`);
-  const data = await res.text();
-  return data;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.contents;
 }
-pre.innerHTML = await fetchContents(book.formats["text/plain; charset=us-ascii"]);
+pre.innerHTML = await fetchContents('https://api.allorigins.win/get?url=' + encodeURIComponent(book.formats["text/plain; charset=us-ascii"]));
+
 contents.appendChild(pre);
 
 bookContainer.appendChild(contents);

@@ -6,6 +6,21 @@ const select = document.getElementById("select");
 const dropdown = document.getElementById("drop-down");
 const submit = document.getElementById("submit");
 const year = document.getElementById("year");
+const statusMessage = document.getElementById('message');
+const messageContainer = document.getElementById('message-container');
+const wishedItemsCount = document.getElementById('wished-items-count');
+const searchBtn = document.getElementById('search-btn');
+const searchContainer = document.getElementById('search-container');
+const hideBtn = document.getElementById('hide-btn');
+const emptyList = document.getElementById('empty');
+
+hideBtn.addEventListener('click', () => {
+  searchContainer.style.top = '-10rem';
+});
+
+searchBtn.addEventListener('click', () => {
+  searchContainer.style.top = '4rem';
+});
 
 const date = new Date();
 
@@ -15,6 +30,7 @@ let wishList = localStorage.getItem("booksWishList")
   ? JSON.parse(localStorage.getItem("booksWishList"))
   : [];
 
+wishedItemsCount.textContent = wishList.length;
 function updateWishList(addToWishList, book) {
   let exists = false;
   for (let item of wishList) {
@@ -40,37 +56,47 @@ function updateWishList(addToWishList, book) {
     addToWishList.textContent = "add to wishlist";
   }
   console.log(wishList);
+  wishedItemsCount.textContent = wishList.length;
 }
 
 function alreadyAdded(book) {
-  for(let item of wishList) {
+  for (let item of wishList) {
     if (item.id == book.id) return true;
   }
   return false;
 }
 
 async function fetchApi(URL) {
+  messageContainer.style.display = "block";
+  statusMessage.innerHTML = "fetching data please wait...";
+
   const response = await fetch(URL);
   const data = await response.json();
   const arr = [...data.results];
+  statusMessage.innerHTML = "";
+  messageContainer.style.display = "none";
 
   bookContainer.innerHTML = "";
+  buttonContainer.innerHTML = '';
 
   if (!arr.length) {
-    bookContainer.innerHTML = "No items found!";
+    emptyList.innerHTML = "No items found!";
     return;
   }
 
   arr.map((book) => {
-    const bookDiv = document.createElement("a");
-    bookDiv.href = 'book.html';
+    const bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
 
-    bookDiv.addEventListener('click', () => localStorage.setItem('selectedBook', JSON.stringify(book)));
+    bookDiv.addEventListener("click", () =>
+      localStorage.setItem("selectedBook", JSON.stringify(book))
+    );
 
     const addToWishList = document.createElement("button");
-    addToWishList.textContent = alreadyAdded(book) ? "remove from wishlist" : "add to wishlist";
-    addToWishList.classList.add(alreadyAdded(book) ? 'danger' : 'success');
+    addToWishList.textContent = alreadyAdded(book)
+      ? "remove from wishlist"
+      : "add to wishlist";
+    addToWishList.classList.add(alreadyAdded(book) ? "danger" : "success");
     addToWishList.addEventListener("click", () =>
       updateWishList(addToWishList, book)
     );
@@ -111,13 +137,17 @@ async function fetchApi(URL) {
     infoContainer.appendChild(bookTitle);
     infoContainer.appendChild(bookAuthors);
     infoContainer.appendChild(bookGenre);
+    const showBookDetails = document.createElement("a");
+    showBookDetails.className = "show-book-details";
+    showBookDetails.textContent = 'Show Book Details';
+    showBookDetails.href = "book.html";
+    infoContainer.appendChild(showBookDetails);
 
     bookDiv.appendChild(imgContainer);
     bookDiv.appendChild(infoContainer);
     bookContainer.appendChild(bookDiv);
   });
 
-  buttonContainer.innerHTML = "";
   const prevBtn = document.createElement("button");
   prevBtn.innerText = "Previous";
   const nextBtn = document.createElement("button");
@@ -148,6 +178,7 @@ function handleFormSubmit(e) {
     const searchURL = `https://gutendex.com/books?search=${searchByTitle.value}`;
     fetchApi(searchURL);
   } else fetchApi(URL);
+  searchContainer.style.top = '-10rem';
 }
 
 submit.addEventListener("click", handleFormSubmit);
@@ -158,4 +189,3 @@ dropdown.addEventListener("change", () => {
     fetchApi(dropdownURL);
   } else fetchApi(URL);
 });
-
