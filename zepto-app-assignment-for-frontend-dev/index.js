@@ -30,7 +30,17 @@ let wishList = localStorage.getItem("booksWishList")
   ? JSON.parse(localStorage.getItem("booksWishList"))
   : [];
 
+
 wishedItemsCount.textContent = wishList.length;
+
+(function(history){
+  var pushState = history.pushState;
+  history.pushState = function(state) {
+    wishedItemsCount.textContent = wishList.length;
+    return pushState.apply(history, arguments);
+  };
+})(window.history);
+
 function updateWishList(addToWishList, book) {
   let exists = false;
   for (let item of wishList) {
@@ -66,6 +76,18 @@ function alreadyAdded(book) {
   return false;
 }
 
+function articleShorter(article, length) {
+  let res = '';
+  if (article.length > length) {
+    for (let i=0; i<length; i++) {
+      res += article[i];
+    }
+    res += '...';
+    return res;
+  }
+  return article;
+}
+
 async function fetchApi(URL) {
   messageContainer.style.display = "block";
   statusMessage.innerHTML = "fetching data please wait...";
@@ -80,9 +102,12 @@ async function fetchApi(URL) {
   buttonContainer.innerHTML = '';
 
   if (!arr.length) {
+    emptyList.style.display = 'block';
     emptyList.innerHTML = "No items found!";
     return;
   }
+
+  emptyList.style.display = 'none';
 
   arr.map((book) => {
     const bookDiv = document.createElement("div");
@@ -111,32 +136,14 @@ async function fetchApi(URL) {
     const bookTitle = document.createElement("p");
     bookTitle.innerText = "Title: " + book.title;
 
-    const bookAuthors = document.createElement("p");
-    bookAuthors.innerHTML = "Authors: ";
-    book.authors.forEach((author, i, arr) => {
-      if (i != arr.length - 1) bookAuthors.innerHTML += author.name + " | ";
-      else bookAuthors.innerHTML += author.name + ".";
-    });
-
-    const bookGenre = document.createElement("p");
-    bookGenre.innerHTML = "Genre: ";
-    book.bookshelves.forEach((el, i, arr) => {
-      if (i != arr.length - 1)
-        bookGenre.innerHTML += el.replace("Browsing:", " ") + " | ";
-      else bookGenre.innerHTML += el.replace("Browsing:", " ") + ".";
-    });
-
     const bookId = document.createElement("p");
-    bookId.innerText = "ID: " + book.id;
     bookId.className = "book-id";
     bookId.appendChild(addToWishList);
 
     const infoContainer = document.createElement("div");
     infoContainer.classList.add("info-container");
-    infoContainer.appendChild(bookId);
     infoContainer.appendChild(bookTitle);
-    infoContainer.appendChild(bookAuthors);
-    infoContainer.appendChild(bookGenre);
+    infoContainer.appendChild(bookId);
     const showBookDetails = document.createElement("a");
     showBookDetails.className = "show-book-details";
     showBookDetails.textContent = 'Show Book Details';
@@ -162,10 +169,12 @@ async function fetchApi(URL) {
 
   prevBtn.addEventListener("click", () => {
     fetchApi(data.previous);
+    globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   });
 
   nextBtn.addEventListener("click", () => {
     fetchApi(data.next);
+    globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   });
 }
 

@@ -51,17 +51,3 @@ infoContainer.appendChild(bookGenre);
 bookDiv.appendChild(imgContainer);
 bookDiv.appendChild(infoContainer);
 bookContainer.appendChild(bookDiv);
-
-const contents = document.createElement("div");
-contents.id = 'contents';
-
-async function fetchContents(url) {
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.contents;
-}
-pre.innerHTML = await fetchContents('https://api.allorigins.win/get?url=' + encodeURIComponent(book.formats["text/plain; charset=us-ascii"]));
-
-contents.appendChild(pre);
-
-bookContainer.appendChild(contents);
