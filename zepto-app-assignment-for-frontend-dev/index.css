@@ -2,11 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
 }
 
 header {
@@ -15,6 +19,7 @@ header {
     position: fixed;
     width: 100%;
     background-color: white;
+    z-index: 10;
 }
 
 nav {
@@ -28,10 +33,11 @@ nav {
     margin: 0 auto;
 }
 
-nav a {
+nav h2 {
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: 600;
+    cursor: pointer;
 }
 
 input,
@@ -92,15 +98,18 @@ main {
     color: black;
     flex-basis: 400px;
     font-size: 1rem;
+    transition: transform 0.2s;
 }
 
 .book:hover {
     background-color: hsl(216, 100%, 95%);
+    transform: translateY(-5px);
 }
 
 .book a {
     text-decoration: none;
     color: blue;
+    font-weight: 400;
 }
 
 .book a:hover {
@@ -118,6 +127,7 @@ main {
     outline: none;
     border: 1px solid hsl(0, 0%, 95%);
     border-radius: 4px;
+    padding: 4px 8px;
 }
 
 .img-container img {
@@ -189,16 +199,26 @@ footer {
 
 #wishlist-btn {
     position: relative;
+    background-color: #28a745; 
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#wishlist-btn:hover {
+    background-color: #218838;
 }
 
 #wished-items-count {
     position: absolute;
-    top: -15%;
-    right: -15%;
+    top: -25%;
+    right: -20%;
     border: 1px solid;
     border-radius: 50%;
-    padding: 0 .35rem;
-    background-color: yellow;
+    padding: .15rem;
+    background-color: #ffc107;
 }
 
 #search-container {
@@ -209,6 +229,7 @@ footer {
     left: 50%;
     transform: translate(-50%);
     transition: all .3s linear;
+    z-index: 20;
 }
 
 #hide-btn-container {
@@ -256,4 +277,26 @@ input {
 
 .book-title {
     font-weight: 500;
+}
+
+select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    background-color: #f8f9fa;
+}
+select:hover {
+    border-color: #007bff;
+}
+
+#search-btn {
+    padding: 4px 8px;
+    background-color: dodgerblue;
+    border: 1px solid dodgerblue;
+    border-radius: 4px;
+}
+
+#search-btn:hover {
+    background-color: #007bff;
 }
