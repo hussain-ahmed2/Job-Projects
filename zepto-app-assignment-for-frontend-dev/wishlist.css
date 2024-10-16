@@ -24,7 +24,7 @@ nav {
     align-items: center;
     height: 100%;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     padding: 1rem;
     margin: 0 auto;
 }
@@ -41,12 +41,15 @@ button {
 
 button {
     cursor: pointer;
-    z-index: 999;
 }
 
 main {
     padding-top: 3rem;
     min-height: calc(100vh - 3.5rem);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1280px;
 }
 
 #book-container {
@@ -147,4 +150,15 @@ footer {
     color: orangered;
     padding-top: 3rem;
     font-size: 1.25rem;
+}
+
+#navigator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+}
+
+.book-title {
+    font-weight: 500;
 }

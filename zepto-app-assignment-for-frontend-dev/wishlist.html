@@ -16,7 +16,11 @@
     </header>
 
     <main>
-        <section id="book-container"></section>
+        <div id="navigator">
+            <button id="home-btn" onclick="location.assign(location.origin)">Home</button>
+            <button id="back-btn" onclick="history.back()">Go Back</button>
+        </div>
+        <div id="book-container"></div>
         <div id="empty"></div>
     </main>
 

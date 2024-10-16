@@ -69,6 +69,7 @@ bookImg.alt = "Book Image";
 imgContainer.appendChild(bookImg);
 
 const bookTitle = document.createElement("p");
+bookTitle.className = 'book-title';
 bookTitle.innerText = "Title: " + book.title;
 
 const bookAuthors = document.createElement("p");

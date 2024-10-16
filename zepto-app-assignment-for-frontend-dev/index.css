@@ -23,7 +23,7 @@ nav {
     align-items: center;
     height: 100%;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     padding: 1rem;
     margin: 0 auto;
 }
@@ -50,6 +50,8 @@ button:disabled {
 main {
     padding-top: 3rem;
     min-height: calc(100vh - 3.5rem);
+    margin: 0 auto;
+    max-width: 1280px;
 }
 
 #dropdown-container {
@@ -250,4 +252,8 @@ input {
     color: orangered;
     font-size: 1.25rem;
     display: none;
+}
+
+.book-title {
+    font-weight: 500;
 }

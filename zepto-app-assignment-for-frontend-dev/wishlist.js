@@ -63,10 +63,6 @@ function updateContents() {
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
 
-    bookDiv.addEventListener("click", () =>
-      localStorage.setItem("selectedBook", JSON.stringify(book))
-    );
-
     const addToWishList = document.createElement("button");
     addToWishList.textContent = alreadyAdded(book)
       ? "remove from wishlist"
@@ -84,6 +80,7 @@ function updateContents() {
     imgContainer.appendChild(bookImg);
 
     const bookTitle = document.createElement("p");
+    bookTitle.className = 'book-title';
     bookTitle.innerText = "Title: " + book.title;
 
     const bookId = document.createElement("p");
@@ -98,6 +95,9 @@ function updateContents() {
     showBookDetails.className = "show-book-details";
     showBookDetails.textContent = "Show Book Details";
     showBookDetails.href = "book.html";
+    showBookDetails.addEventListener("click", () =>
+      localStorage.setItem("selectedBook", JSON.stringify(book))
+    );
     infoContainer.appendChild(showBookDetails);
 
     bookDiv.appendChild(imgContainer);

@@ -117,6 +117,7 @@ async function fetchApi(URL) {
     imgContainer.appendChild(bookImg);
 
     const bookTitle = document.createElement("p");
+    bookTitle.className = 'book-title';
     bookTitle.innerText = "Title: " + book.title;
 
     const bookId = document.createElement("p");
@@ -131,6 +132,9 @@ async function fetchApi(URL) {
     showBookDetails.className = "show-book-details";
     showBookDetails.textContent = "Show Book Details";
     showBookDetails.href = "book.html";
+    showBookDetails.addEventListener("click", () =>
+      localStorage.setItem("selectedBook", JSON.stringify(book))
+    );
     infoContainer.appendChild(showBookDetails);
 
     bookDiv.appendChild(imgContainer);
