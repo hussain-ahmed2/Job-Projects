@@ -217,7 +217,7 @@ footer {
     right: -20%;
     border: 1px solid;
     border-radius: 50%;
-    padding: .15rem;
+    padding: 0.15rem 0.25rem;
     background-color: #ffc107;
 }
 
