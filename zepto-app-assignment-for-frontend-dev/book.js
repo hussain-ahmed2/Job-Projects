@@ -14,6 +14,10 @@ wishedItemsCount.textContent = wishList.length;
   };
 })(window.history);
 
+window.addEventListener('popstate', function(event) {
+  wishedItemsCount.textContent = wishList.length;
+});
+
 function alreadyAdded(book) {
   for (let item of wishList) {
     if (item.id == book.id) return true;

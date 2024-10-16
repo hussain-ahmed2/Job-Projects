@@ -115,3 +115,7 @@ updateContents();
     return pushState.apply(history, arguments);
   };
 })(window.history);
+
+window.addEventListener('popstate', function(event) {
+  updateContents();  
+});
